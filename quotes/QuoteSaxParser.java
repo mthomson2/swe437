@@ -17,7 +17,9 @@ public QuoteSaxParser (String fileName)
 {
    try
    {
-      File quoteFile = new File (fileName);
+       
+      //Just replace the path.
+      File quoteFile = new File ("/home/molly/Documents/Spring2018/swe437/hw2/quotes/src/quotes/quo.xml");
 
       handler = new QuoteSaxHandler();
       SAXParserFactory factory = SAXParserFactory.newInstance();

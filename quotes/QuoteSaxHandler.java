@@ -54,7 +54,7 @@ public void startElement (String uri, String name, String qName, Attributes atts
    else if (qName.equalsIgnoreCase(QuoteElem))
    {
       currentElement = QuoteElem;
-      quoteTmp = new Quote();
+      quoteTmp = new Quote();   
    }
    else if (qName.equalsIgnoreCase (QuoteAuthorElem))
    {

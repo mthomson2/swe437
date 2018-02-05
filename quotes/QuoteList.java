@@ -1,5 +1,6 @@
 package quotes;
 
+
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -49,7 +50,7 @@ public class QuoteList
    /**
     * Search the quotes in the list, based on searchString
     * @param searchString String input for search
-    * @param mode search in the author, quotr, or both
+    * @param mode search in the author, quote, or both
     * @return QuoteList containing the search results (may be multiple quotes)
     */
    public QuoteList search (String searchString, int mode)
