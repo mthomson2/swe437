@@ -1,10 +1,8 @@
 package quotes;
 import java.awt.EventQueue;
-
+import javax.xml.parsers.*;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JEditorPane;
-import javax.swing.SwingConstants;
 import java.awt.Font;
 import javax.swing.JSeparator;
 import java.awt.Color;
@@ -12,20 +10,26 @@ import javax.swing.JTextArea;
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 import java.awt.event.ActionEvent;
 import javax.swing.JTextField;
 import javax.swing.JRadioButton;
-import java.awt.SystemColor;
 import javax.swing.UIManager;
+import javax.swing.text.Element;
 
 import quotes.Quote;
-import javax.swing.JScrollBar;
 import javax.swing.JScrollPane;
 
-import java.awt.Scrollbar;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
+import java.util.ArrayList;
+import java.util.Collection;
+
 import javax.swing.ScrollPaneConstants;
+
+import javax.xml.transform.*;
+import javax.xml.transform.stream.*;
+import javax.xml.transform.dom.*;
+import org.w3c.dom.*;
+import org.xml.sax.SAXException;
 
 /// @author Eric Lee (02/01/2018)
 /// Modified by Molly Thomson (02/04/2018)
@@ -78,7 +82,7 @@ public class QuotesApp {
 	private void initialize() {
 		frame = new JFrame();
 		frame.getContentPane().setFont(new Font("Lucida Sans", Font.PLAIN, 12));
-		frame.setBounds(100, 100, 675, 630);
+		frame.setBounds(100, 100, 675, 750);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		
@@ -181,7 +185,7 @@ public class QuotesApp {
 		authorText.setBackground(UIManager.getColor("Menu.background"));
 		authorText.setEditable(false);
 		authorText.setText("Lee and Thomson 2018");
-		authorText.setBounds(29, 568, 157, 20);
+		authorText.setBounds(39, 642, 157, 20);
 		frame.getContentPane().add(authorText);
 		
 		JScrollPane scrollPane = new JScrollPane();
@@ -190,16 +194,18 @@ public class QuotesApp {
 		frame.getContentPane().add(scrollPane);
 		
 		recentText = new JTextArea();
-		recentText.setEditable(false);
 		scrollPane.setViewportView(recentText);
+		recentText.setEditable(false);
 		
-//		Scrollbar scrollbar = new Scrollbar();
-//		scrollbar.setBounds(623, 473, 17, 68);
-//		frame.getContentPane().add(scrollbar);
+		JButton btnAddANewquote = new JButton("Add a NewQuote ");
+		btnAddANewquote.setBounds(39, 595, 193, 25);
+		frame.getContentPane().add(btnAddANewquote);
+		btnAddANewquote.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				btnAddQuoteActionPerformed(e);
+			}
+		});
 		
-//		JScrollPane scrollBar = new JScrollPane(recentText);
-//		scrollBar.setBounds(612, 473, 17, 68);
-//		frame.getContentPane().add(scrollBar);
 	}
 	
 	private void btnRandomQuoteActionPerformed(ActionEvent evt) {
@@ -259,6 +265,47 @@ public class QuotesApp {
         rdbtnQuote.setSelected(false);
     }
 	
+	private void btnAddQuoteActionPerformed(ActionEvent evt) {
+		createNewQuoteFrame();
+	}
+	
+	private void createNewQuoteFrame() {
+		QuotesAdd addQuote = new QuotesAdd();
+		addQuote.frame.setVisible(true);
+		
+	}
+	
+	protected void addXML(String author, String quote) throws ParserConfigurationException, SAXException, IOException, TransformerException {
+		DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
+        DocumentBuilder documentBuilder = documentBuilderFactory.newDocumentBuilder();
+        org.w3c.dom.Document document = documentBuilder.parse("/home/molly/Documents/Spring2018/swe437/hw2/quotes/src/quotes/quo.xml");
+        Element root = (Element) document.getDocumentElement();
+
+        Collection<Quote> quotes = new ArrayList<Quote>();
+        quotes.add(new Quote());
+
+        for (Quote quo : quotes) {
+            // server elements
+            Element newQuote = (Element) document.createElement("quote");
+
+            Element quotetext = (Element) document.createElement("quote-text");
+            ((Node) quotetext).appendChild(document.createTextNode(quo.getQuoteText()));
+            ((Node) newQuote).appendChild((Node) quotetext);
+
+            Element authortext = (Element) document.createElement("author");
+            ((Node) authortext).appendChild(document.createTextNode(quo.getAuthor()));
+            ((Node) newQuote).appendChild((Node) authortext);
+
+            ((Node) root).appendChild((Node) newQuote);
+        }
+
+        DOMSource source = new DOMSource(document);
+
+        TransformerFactory transformerFactory = TransformerFactory.newInstance();
+        Transformer transformer = transformerFactory.newTransformer();
+        StreamResult result = new StreamResult("/home/molly/Documents/Spring2018/swe437/hw2/quotes/src/quotes/quo.xml");
+        transformer.transform(source, result);
+	}
 	private JFrame frame;
 	private JLabel titleText;
 	private JTextField textField;
