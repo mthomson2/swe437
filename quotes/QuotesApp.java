@@ -1,6 +1,5 @@
 package quotes;
 import java.awt.EventQueue;
-import javax.xml.parsers.*;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import java.awt.Font;
@@ -10,26 +9,13 @@ import javax.swing.JTextArea;
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
-import java.io.IOException;
 import java.awt.event.ActionEvent;
 import javax.swing.JTextField;
 import javax.swing.JRadioButton;
 import javax.swing.UIManager;
-import javax.swing.text.Element;
-
 import quotes.Quote;
 import javax.swing.JScrollPane;
-
-import java.util.ArrayList;
-import java.util.Collection;
-
 import javax.swing.ScrollPaneConstants;
-
-import javax.xml.transform.*;
-import javax.xml.transform.stream.*;
-import javax.xml.transform.dom.*;
-import org.w3c.dom.*;
-import org.xml.sax.SAXException;
 
 /// @author Eric Lee (02/01/2018)
 /// Modified by Molly Thomson (02/04/2018)
@@ -88,7 +74,7 @@ public class QuotesApp {
 		
 		titleText = new JLabel("The GMU Quote Generator");
 		titleText.setFont(new Font("Liberation Serif", Font.BOLD, 24));
-		titleText.setBounds(195, 12, 285, 68);
+		titleText.setBounds(125, 12, 285, 68);
 		frame.getContentPane().add(titleText);
 		
 		JSeparator separator = new JSeparator();
@@ -270,42 +256,10 @@ public class QuotesApp {
 	}
 	
 	private void createNewQuoteFrame() {
-		QuotesAdd addQuote = new QuotesAdd();
+		QuoteAdd addQuote = new QuoteAdd();
 		addQuote.frame.setVisible(true);
-		
 	}
 	
-	protected void addXML(String author, String quote) throws ParserConfigurationException, SAXException, IOException, TransformerException {
-		DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
-        DocumentBuilder documentBuilder = documentBuilderFactory.newDocumentBuilder();
-        org.w3c.dom.Document document = documentBuilder.parse("/home/molly/Documents/Spring2018/swe437/hw2/quotes/src/quotes/quo.xml");
-        Element root = (Element) document.getDocumentElement();
-
-        Collection<Quote> quotes = new ArrayList<Quote>();
-        quotes.add(new Quote());
-
-        for (Quote quo : quotes) {
-            // server elements
-            Element newQuote = (Element) document.createElement("quote");
-
-            Element quotetext = (Element) document.createElement("quote-text");
-            ((Node) quotetext).appendChild(document.createTextNode(quo.getQuoteText()));
-            ((Node) newQuote).appendChild((Node) quotetext);
-
-            Element authortext = (Element) document.createElement("author");
-            ((Node) authortext).appendChild(document.createTextNode(quo.getAuthor()));
-            ((Node) newQuote).appendChild((Node) authortext);
-
-            ((Node) root).appendChild((Node) newQuote);
-        }
-
-        DOMSource source = new DOMSource(document);
-
-        TransformerFactory transformerFactory = TransformerFactory.newInstance();
-        Transformer transformer = transformerFactory.newTransformer();
-        StreamResult result = new StreamResult("/home/molly/Documents/Spring2018/swe437/hw2/quotes/src/quotes/quo.xml");
-        transformer.transform(source, result);
-	}
 	private JFrame frame;
 	private JLabel titleText;
 	private JTextField textField;

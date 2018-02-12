@@ -80,7 +80,7 @@ public class QuoteList
    }
 
    /**
-    * Retuen a random quote object from the list.
+    * Return a random quote object from the list.
     * @return a random Quote
     */
    public Quote getRandomQuote ()
