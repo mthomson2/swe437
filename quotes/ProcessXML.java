@@ -10,9 +10,9 @@ import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 import org.w3c.dom.*;
  
-class processXML 
+class ProcessXML 
 { 
-    public void process(String author, String quotes) throws Exception, DOMException,ParserConfigurationException { 
+    public void process(Quote quoteAuthor) throws Exception, DOMException,ParserConfigurationException { 
        
          
         DocumentBuilderFactory dbf= DocumentBuilderFactory.newInstance(); 
@@ -29,8 +29,8 @@ class processXML
         //subroot = quote 
         //child1 = quote-text
         //child2 = author
-        Text qutoeText = dct.createTextNode(quotes);
-        Text authorText = dct.createTextNode(author);
+        Text qutoeText = dct.createTextNode(quoteAuthor.getQuoteText());
+        Text authorText = dct.createTextNode(quoteAuthor.getAuthor());
         
         quoteEle.appendChild(qutoeText);//add text into child
         authorEle.appendChild(authorText);//add text into child
