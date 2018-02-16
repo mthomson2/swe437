@@ -70,43 +70,41 @@ public class H4Tester {
 				false);
 	}
 	
-//	public void search3() {
-//		String searchString = ("Molly");
-//		quoteList.search(searchString, 2);
-//		// Expecting four results
-//		for(int i = 0; i < 4; i++) {
-//		assertEquals(
-//				quoteList.getQuote(quoteList.getSize() - 1 - i).getQuoteText().contains(searchString) ||
-//				quoteList.getQuote(quoteList.getSize() - 1).getQuoteText().contains(searchString.toLowerCase()) ||
-//				quoteList.getQuote(quoteList.getSize() - 1 - i).getAuthor().contains(searchString) ||
-//				quoteList.getQuote(quoteList.getSize() - 1 - i).getAuthor().contains(searchString.toLowerCase()),
-//				true);
-//		}
-//		
-//		// Will fail if we check for more than four results
-//		assertEquals(
-//				quoteList.getQuote(quoteList.getSize() - 6).getQuoteText().contains(searchString) ||
-//				quoteList.getQuote(quoteList.getSize() - 6).getQuoteText().contains(searchString.toLowerCase()) ||
-//				quoteList.getQuote(quoteList.getSize() - 6).getAuthor().contains(searchString) ||
-//				quoteList.getQuote(quoteList.getSize() - 6).getAuthor().contains(searchString.toLowerCase()),
-//				false);
-//	}
+	@Test
+	public void search3a() {
+		String searchString = ("Molly");
+		QuoteList returnQuote = quoteList.search(searchString, 2);
+		// Expecting four results
+		for(int i = 0; i < 4; i++) {
+		assertEquals(
+				returnQuote.getQuote(returnQuote.getSize() - 1 - i).getQuoteText().contains(searchString) ||
+				returnQuote.getQuote(returnQuote.getSize() - 1).getQuoteText().contains(searchString.toLowerCase()) ||
+				returnQuote.getQuote(returnQuote.getSize() - 1 - i).getAuthor().contains(searchString) ||
+				returnQuote.getQuote(returnQuote.getSize() - 1 - i).getAuthor().contains(searchString.toLowerCase()),
+				true);
+		}
+	}
 	
-//	@Test
-//	public void search4() {
-//		//store size of the arrayList
-//		//call search (0, 3)
-//		//check list size
-//		int size = quoteList.getSize();//store size of arrayList.
-//		quoteList.search("Richard", 3);
-//		assertEquals(size==quoteList.getSize(), true);
-//		quoteList.search("John",3);
-//		assertEquals(size == quoteList.getSize(), true);
-//		quoteList.search("Eschew obfuscation!", 3);
-//		assertEquals(size == quoteList.getSize(), true);
-//
-//	}
+	@Test (expected = IndexOutOfBoundsException.class)
+	public void search3b() {
+		String searchString = ("Molly");
+		QuoteList returnQuote = quoteList.search(searchString, 2);
+		
+		// Will fail if we check for more than four results
+		assertEquals(
+				returnQuote.getQuote(returnQuote.getSize() - 6).getQuoteText().contains(searchString) ||
+				returnQuote.getQuote(returnQuote.getSize() - 6).getQuoteText().contains(searchString.toLowerCase()) ||
+				returnQuote.getQuote(returnQuote.getSize() - 6).getAuthor().contains(searchString) ||
+				returnQuote.getQuote(returnQuote.getSize() - 6).getAuthor().contains(searchString.toLowerCase()),
+				false);
+	}
 	
-	
-
+	@Test
+	public void search4() {
+		// Mode 3 does not have a case to handle it, so our return list
+		//	should be empty
+		String searchString = ("Seho");
+		QuoteList returnQuote = quoteList.search(searchString, 3);
+		assertEquals(returnQuote.getSize(), 0);
+	}
 }
