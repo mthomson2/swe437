@@ -16,76 +16,76 @@ import javax.swing.JButton;
 
 public class QuoteAdd {
 
-	/**
-	 *      Created by Molly
+    /**
+     *      Created by Molly
      *          Modified by Eric         
-	 */
+     */
          
     String author, quotes; //input string values 
     ProcessXML add;// add quotes and author into xml file.
     
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					QuoteAdd window = new QuoteAdd();
-					window.frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
+    public static void main(String[] args) {
+        EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                try {
+                    QuoteAdd window = new QuoteAdd();
+                    window.frame.setVisible(true);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+    }
 
-	/**
-	 * Create the application.
-	 */
-	public QuoteAdd() {
-		initialize();
-	}
+    /**
+     * Create the application.
+     */
+    public QuoteAdd() {
+        initialize();
+    }
 
-	/**
-	 * Initialize the contents of the frame.
-	 */
-	private void initialize() {
-		frame = new JFrame();
-		frame.getContentPane().setFont(new Font("Lucida Sans", Font.PLAIN, 12));
-		frame.setBounds(100, 100, 675, 500);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.getContentPane().setLayout(null);
-		//frame.setVisible(true);
-		
-		JLabel titleText = new JLabel("Add A New Quote");
-		titleText.setHorizontalAlignment(SwingConstants.CENTER);
-		titleText.setFont(new Font("Liberation Serif", Font.BOLD, 24));
-		titleText.setBounds(195, 12, 285, 68);
-		frame.getContentPane().add(titleText);
-		
-		JSeparator separator = new JSeparator();
-		separator.setForeground(Color.LIGHT_GRAY);
-		separator.setBounds(0, 77, 687, 20);
-		frame.getContentPane().add(separator);
-		
-		JLabel labelAuthor = new JLabel("Author: ");
-		labelAuthor.setBounds(33, 109, 70, 15);
-		frame.getContentPane().add(labelAuthor);
-		
-		JLabel labelQuote = new JLabel("Quote:");
-		labelQuote.setBounds(33, 170, 70, 15);
-		frame.getContentPane().add(labelQuote);
-		
-		authorText = new JTextField();
-		authorText.setBounds(121, 109, 517, 19);
-		frame.getContentPane().add(authorText);
-		authorText.setColumns(10);
-		
-		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(121, 170, 517, 175);
-		frame.getContentPane().add(scrollPane);
-		
-		quoteText = new JTextArea();
-		scrollPane.setViewportView(quoteText);
-		
+    /**
+     * Initialize the contents of the frame.
+     */
+    private void initialize() {
+        frame = new JFrame();
+        frame.getContentPane().setFont(new Font("Lucida Sans", Font.PLAIN, 12));
+        frame.setBounds(100, 100, 675, 500);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.getContentPane().setLayout(null);
+        //frame.setVisible(true);
+        
+        JLabel titleText = new JLabel("Add A New Quote");
+        titleText.setHorizontalAlignment(SwingConstants.CENTER);
+        titleText.setFont(new Font("Liberation Serif", Font.BOLD, 24));
+        titleText.setBounds(195, 12, 285, 68);
+        frame.getContentPane().add(titleText);
+        
+        JSeparator separator = new JSeparator();
+        separator.setForeground(Color.LIGHT_GRAY);
+        separator.setBounds(0, 77, 687, 20);
+        frame.getContentPane().add(separator);
+        
+        JLabel labelAuthor = new JLabel("Author: ");
+        labelAuthor.setBounds(33, 109, 70, 15);
+        frame.getContentPane().add(labelAuthor);
+        
+        JLabel labelQuote = new JLabel("Quote:");
+        labelQuote.setBounds(33, 170, 70, 15);
+        frame.getContentPane().add(labelQuote);
+        
+        authorText = new JTextField();
+        authorText.setBounds(121, 109, 517, 19);
+        frame.getContentPane().add(authorText);
+        authorText.setColumns(10);
+        
+        JScrollPane scrollPane = new JScrollPane();
+        scrollPane.setBounds(121, 170, 517, 175);
+        frame.getContentPane().add(scrollPane);
+        
+        quoteText = new JTextArea();
+        scrollPane.setViewportView(quoteText);
+        
                 
         /*
             add Clean button 
@@ -102,9 +102,9 @@ public class QuoteAdd {
         /*
             Add button will submit the information the the XML Parser
         */
-		btnAddNew = new JButton("Add");
-		btnAddNew.setBounds(521, 357, 117, 25);
-		frame.getContentPane().add(btnAddNew);       
+        btnAddNew = new JButton("Add");
+        btnAddNew.setBounds(521, 357, 117, 25);
+        frame.getContentPane().add(btnAddNew);       
         btnAddNew.addActionListener(new java.awt.event.ActionListener() {
         public void actionPerformed(java.awt.event.ActionEvent evt) {
             try {
@@ -112,6 +112,18 @@ public class QuoteAdd {
             } catch (Exception ex) {
                 Logger.getLogger(QuoteAdd.class.getName()).log(Level.SEVERE, null, ex);
             }
+        }});
+        
+        /*
+            add Exit button 
+         */
+        btnExit = new JButton("Exit");
+        btnExit.setBounds(279, 357, 117, 25);
+        frame.getContentPane().add(btnExit);       
+        btnExit.addActionListener(new java.awt.event.ActionListener() {
+        //button action listener. 
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+            btnExitActionPerformed(evt);
         }});
 
         quoteText.setText(
@@ -124,15 +136,20 @@ public class QuoteAdd {
                                 
         
         }
-	
+    
          private void btnCleanActionPerformed(java.awt.event.ActionEvent evt) {                                         
-        //When clean botton is click, then clear textArea and unselected all radio button.
+        //When clean button is click, then clear textArea and unselected all radio button.
         
             authorText.setText("");
             quoteText.setText("");
-        }//end of clean button                                        
+        }//end of clean button              
+         
+         private void btnExitActionPerformed(java.awt.event.ActionEvent evt) {                                         
+             //When clean button is click, then exit the Add screen
+                frame.dispose();
+             }//end of exit button              
         
-    	private void btnAddActionPerformed(java.awt.event.ActionEvent evt) throws Exception {
+        private void btnAddActionPerformed(java.awt.event.ActionEvent evt) throws Exception {
             //Add new quote and author in quote-list, which is xml file.
             
                 boolean checkAuthor = false;
@@ -143,22 +160,21 @@ public class QuoteAdd {
                     Quote quoteAuthor = new Quote(author, quotes);
                     
                     if(author.length()==0 || quotes.length() == 0){
-                        //case 1: checkign inputs are empty or not. 
+                        //case 1: checking inputs are empty or not. 
                         quoteText.setText("------Error------" +'\n' +"Please fill out both author and qutes.");
                         checkAuthor = false;
                         checkQuote = false;
                     
                     } else{
-                        //case 2: if inputs are not empty, then determine that author and quotes are vailed or not. 
+                        //case 2: if inputs are not empty, then determine that author and quotes are failed or not. 
                         
                         checkAuthor = checkAuthor(author);//call checkAuthor method to check author string
                         checkQuote = checkQuote(quotes);//call checkQuote method to check quote string. 
                           
                         if(checkQuote && checkAuthor){
                         //case 3: If author name and quotes satisfy the integrity of the data file,
-                        //then call add method in ProcessXML class to add autoer and qutoes into XML file.
+                        //then call add method in ProcessXML class to add author and quotes into XML file.
                             add = new ProcessXML();//initialize add value
-                            Quote quoteAuthor = new Quote(quoteAuthor);
                             add.process(quoteAuthor);//passing author and quotes into ProcessXML.
                             quoteText.setText("Your quote has been saved!!");
                 
@@ -172,15 +188,15 @@ public class QuoteAdd {
                                 quoteText.setText("Please check quote. Quote must begin with upper case");
                             }
                         
-                            //case 6: if both of them are faild, then print out error message. 
+                            //case 6: if both of them are failed, then print out error message. 
                             quoteText.setText("-------Error------" +'\n' + "Please check author and quote. Both of them don't satisfy the rule.");
                         }//end of inner if-statement.
-                    }//end of outter if-statement
-    		
-    	}//end of button method.
+                    }//end of outer if-statement
+            
+        }//end of button method.
         
         public boolean checkGrammer(String str, int index){
-        //This is checking grammers such as . , ; , ! etc.   
+        //This is checking grammars such as . , ; , ! etc.   
         //case 7: check punctuation mark. Only allow below marks. 
             boolean check = false;
             char t1 = '.';
@@ -204,7 +220,7 @@ public class QuoteAdd {
             boolean check = false;
           
             if(!Character.isUpperCase(str.charAt(0))){
-            //Chekcing the first charater 
+            //Checking the first character 
                 quoteText.setText("Error: The first character must begin with upper case.");//Testing line. 
                 return check;
             }else{
@@ -250,7 +266,7 @@ public class QuoteAdd {
                 }//end of for-loop
             
                 if(!Character.isLetter(str.charAt(index))){
-                //When input is not chracter, this if-statement checks that 
+                //When input is not character, this if-statement checks that 
                 //input is white space or period.
                     if(Character.isSpaceChar(str.charAt(index)) || (str.charAt(index)==period)){
                 
@@ -260,7 +276,7 @@ public class QuoteAdd {
                     
                         checkAuthor= false;
                         break;
-                    }//innder if-else statement
+                    }//inner if-else statement
                 }else{
                                   
                     checkAuthor = true;
@@ -299,9 +315,10 @@ public class QuoteAdd {
         return checkQuote;
     }//end of chekcQuote
     
-	protected JFrame frame;
-	private JTextField authorText;
-	private javax.swing.JTextArea quoteText;
+    protected JFrame frame;
+    private JTextField authorText;
+    private javax.swing.JTextArea quoteText;
     private JButton btnAddNew; 
     private JButton btnClean;
+    private JButton btnExit;
 }
