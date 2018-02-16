@@ -46,22 +46,29 @@ public class H4Tester {
 				false);
 	}
 	
-//	@Test
-//	public void search2() {
-//		String searchString = ("Ubuntu");
-//		quoteList.search(searchString, 1);
-//		// Expecting one result
-//		assertEquals(
-//				quoteList.getQuote(quoteList.getSize() - 1).getQuoteText().contains(searchString) ||
-//				quoteList.getQuote(quoteList.getSize() - 1).getQuoteText().contains(searchString.toLowerCase()),
-//				true);
-//		
-//		// Will fail if we check for more than one result
-//		assertEquals(
-//				quoteList.getQuote(quoteList.getSize() - 2).getQuoteText().contains(searchString) ||
-//				quoteList.getQuote(quoteList.getSize() - 2).getQuoteText().contains(searchString.toLowerCase()),
-//				false);
-//	}
+	@Test
+	public void search2a() {
+		String searchString = ("Ubuntu");
+		QuoteList returnQuote = quoteList.search(searchString, 1);
+		// Expecting one result
+		assertEquals(
+				returnQuote.getQuote(returnQuote.getSize() - 1).getQuoteText().contains(searchString) ||
+				returnQuote.getQuote(returnQuote.getSize() - 1).getQuoteText().contains(searchString.toLowerCase()),
+				true);
+
+	}
+	
+	@Test (expected = IndexOutOfBoundsException.class)
+	public void search2b() {
+		String searchString = ("Ubuntu");
+		QuoteList returnQuote = quoteList.search(searchString, 1);
+		
+		// Will fail if we check for more than one result
+		assertEquals(
+				returnQuote.getQuote(returnQuote.getSize() - 2).getQuoteText().contains(searchString) ||
+				returnQuote.getQuote(returnQuote.getSize() - 2).getQuoteText().contains(searchString.toLowerCase()),
+				false);
+	}
 	
 //	public void search3() {
 //		String searchString = ("Molly");
