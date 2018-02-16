@@ -21,27 +21,29 @@ public class H4Tester {
 	}
 	
 	@Test
-	public void search1() {
-		String searchString = ("Seho");
-		quoteList.search(searchString, 0);
-		// Expecting 4 search results for author Molly 
-//		for (int i = 0; i < 3; i++) {
-//			assertEquals(
-//					quoteList.getQuote(quoteList.getSize() - 1 - i).getAuthor().contains(searchString) ||
-//					quoteList.getQuote(quoteList.getSize() - 1 - i).getAuthor().contains(searchString.toLowerCase()),
-//					true);
-//		}
+	public void search1a() {
+		String searchString = ("Molly");
+		QuoteList returnQuote = quoteList.search(searchString, 0);
+		
+		// Expecting 3 search results for author Molly 
+		for (int i = 0; i < returnQuote.getSize(); i++) {
+			assertEquals(
+					returnQuote.getQuote(returnQuote.getSize() - 1 - i).getAuthor().contains(searchString) ||
+					returnQuote.getQuote(returnQuote.getSize() - 1 - i).getAuthor().contains(searchString.toLowerCase()),
+					true);
+		}
+	}
+	
+	@Test (expected = IndexOutOfBoundsException.class)
+	public void search1b() {
+		String searchString = ("Molly");
+		QuoteList returnQuote = quoteList.search(searchString, 0);
 		
 		// Will fail if check beyond 4 (since there was only 3 quotes with Molly as author)
 		assertEquals(
-				quoteList.getQuote(quoteList.getSize() - 1 - 1).getAuthor().contains(searchString) ||
-				quoteList.getQuote(quoteList.getSize() - 1 - 1).getAuthor().contains(searchString.toLowerCase()),
-				true);
-		System.out.println(quoteList.getQuote(quoteList.getSize() - 1 - 4));
-		System.out.println(quoteList.getQuote(quoteList.getSize() - 1 - 3));
-		System.out.println(quoteList.getQuote(quoteList.getSize() - 1 - 2));
-		System.out.println(quoteList.getQuote(quoteList.getSize() - 1 - 1));
-		System.out.println(quoteList.getQuote(quoteList.getSize() - 1 - 0));
+				returnQuote.getQuote(quoteList.getSize() - 1 - 3).getAuthor().contains(searchString) ||
+				returnQuote.getQuote(quoteList.getSize() - 1 - 3).getAuthor().contains(searchString.toLowerCase()),
+				false);
 	}
 	
 //	@Test
@@ -81,6 +83,21 @@ public class H4Tester {
 //				quoteList.getQuote(quoteList.getSize() - 6).getAuthor().contains(searchString) ||
 //				quoteList.getQuote(quoteList.getSize() - 6).getAuthor().contains(searchString.toLowerCase()),
 //				false);
+//	}
+	
+//	@Test
+//	public void search4() {
+//		//store size of the arrayList
+//		//call search (0, 3)
+//		//check list size
+//		int size = quoteList.getSize();//store size of arrayList.
+//		quoteList.search("Richard", 3);
+//		assertEquals(size==quoteList.getSize(), true);
+//		quoteList.search("John",3);
+//		assertEquals(size == quoteList.getSize(), true);
+//		quoteList.search("Eschew obfuscation!", 3);
+//		assertEquals(size == quoteList.getSize(), true);
+//
 //	}
 	
 	
