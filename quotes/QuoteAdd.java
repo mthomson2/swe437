@@ -50,7 +50,7 @@ public class QuoteAdd {
 	private void initialize() {
 		frame = new JFrame();
 		frame.getContentPane().setFont(new Font("Lucida Sans", Font.PLAIN, 12));
-		frame.setBounds(100, 100, 675, 500);
+		frame.setBounds(100, 100, 675, 542);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		//frame.setVisible(true);
@@ -91,7 +91,7 @@ public class QuoteAdd {
             add Clean button 
         */
         btnClean = new JButton("Clean");
-        btnClean.setBounds(400, 357, 117, 25);
+        btnClean.setBounds(402, 458, 117, 25);
         frame.getContentPane().add(btnClean);       
         btnClean.addActionListener(new java.awt.event.ActionListener() {
         //button action listener. 
@@ -103,7 +103,7 @@ public class QuoteAdd {
             Add button will submit the information the the XML Parser
         */
 		btnAddNew = new JButton("Add");
-		btnAddNew.setBounds(521, 357, 117, 25);
+		btnAddNew.setBounds(521, 458, 117, 25);
 		frame.getContentPane().add(btnAddNew);       
         btnAddNew.addActionListener(new java.awt.event.ActionListener() {
         public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -118,7 +118,7 @@ public class QuoteAdd {
         	add Exit button 
          */
 		btnExit = new JButton("Exit");
-		btnExit.setBounds(279, 357, 117, 25);
+		btnExit.setBounds(284, 458, 117, 25);
 		frame.getContentPane().add(btnExit);       
 		btnExit.addActionListener(new java.awt.event.ActionListener() {
 		//button action listener. 
@@ -133,6 +133,15 @@ public class QuoteAdd {
             "Quotes Rules" + '\n' + 
             "1. The first character must be upper case." + '\n' +  
             "2. Quotes can include punctuation mark.");
+        
+        JLabel lblKeywords = new JLabel("Keywords:");
+        lblKeywords.setBounds(33, 371, 87, 15);
+        frame.getContentPane().add(lblKeywords);
+        
+        textKeyword = new JTextField();
+        textKeyword.setBounds(121, 369, 517, 58);
+        frame.getContentPane().add(textKeyword);
+        textKeyword.setColumns(10);
                                 
         
         }
@@ -321,4 +330,5 @@ public class QuoteAdd {
     private JButton btnAddNew; 
     private JButton btnClean;
     private JButton btnExit;
+    private JTextField textKeyword;
 }

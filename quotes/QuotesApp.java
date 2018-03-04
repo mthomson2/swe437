@@ -74,7 +74,7 @@ public class QuotesApp {
 		
 		titleText = new JLabel("The GMU Quote Generator");
 		titleText.setFont(new Font("Liberation Serif", Font.BOLD, 24));
-		titleText.setBounds(125, 12, 285, 68);
+		titleText.setBounds(155, 12, 365, 68);
 		frame.getContentPane().add(titleText);
 		
 		JSeparator separator = new JSeparator();
@@ -131,8 +131,8 @@ public class QuotesApp {
 		rdbtnAuthor.setBounds(243, 340, 84, 23);
 		frame.getContentPane().add(rdbtnAuthor);
 		
-		rdbtnBoth = new JRadioButton("Both");
-		rdbtnBoth.setBounds(341, 340, 149, 23);
+		rdbtnBoth = new JRadioButton("All");
+		rdbtnBoth.setBounds(471, 340, 149, 23);
 		frame.getContentPane().add(rdbtnBoth);
 		
 		ButtonGroup group = new ButtonGroup();
@@ -186,6 +186,10 @@ public class QuotesApp {
 		JButton btnAddANewquote = new JButton("Add a NewQuote ");
 		btnAddANewquote.setBounds(39, 595, 193, 25);
 		frame.getContentPane().add(btnAddANewquote);
+		
+		JRadioButton rdbtnKeyword = new JRadioButton("Keyword");
+		rdbtnKeyword.setBounds(347, 340, 84, 23);
+		frame.getContentPane().add(rdbtnKeyword);
 		btnAddANewquote.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				btnAddQuoteActionPerformed(e);
