@@ -33,6 +33,7 @@ public class QuoteList
    public void setQuote (Quote q)
    {
       quoteArray.add (q);
+      //System.out.println(quoteArray.toString());
    }
 
    // Current size of the quote list
@@ -62,11 +63,11 @@ public class QuoteList
          quote = quoteArray.get (i);
          if (mode == SearchAuthorVal && quote.getAuthor().toLowerCase().indexOf (searchString.toLowerCase()) != -1)
          {  // Found a matching author, save it
-            // System.out.println ("Matched Author ");
+            //System.out.println ("Matched Author ");
             returnQuote.setQuote (quote);
          } else if (mode == SearchTextVal && quote.getQuoteText().toLowerCase().indexOf (searchString.toLowerCase()) != -1)
          {  // Found a matching quote, save it
-            // System.out.println ("Matched Text ");
+            //System.out.println ("Matched Text ");
             returnQuote.setQuote (quote);
          } else if ((mode == SearchBothVal) &&
                     (quote.getAuthor().toLowerCase().indexOf (searchString.toLowerCase()) != -1 ||

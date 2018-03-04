@@ -107,4 +107,21 @@ public class H4Tester {
 		QuoteList returnQuote = quoteList.search(searchString, 3);
 		assertEquals(returnQuote.getSize(), 0);
 	}
+
+	 @Test 
+	 public void search5() {
+        // Check that search function returns appropriate strings:
+        //   either author name or qutotes are uppercase, then return false.
+        QuoteList temp = new QuoteList();
+        temp = quoteList.search("Molly", 0);
+        assertEquals(temp.getQuote(0).getAuthor().toUpperCase() == temp.getQuote(0).getAuthor(),
+         false);
+        temp = quoteList.search("Eschew obfuscation", 1);
+        assertEquals(temp.getQuote(0).getQuoteText().toUpperCase() ==
+         temp.getQuote(0).getQuoteText(), false);
+        temp = quoteList.search("Molly", 2);
+        assertEquals(temp.getQuote(0).getQuoteText().toUpperCase() ==
+         temp.getQuote(0).getQuoteText(), false);
+}
+
 }

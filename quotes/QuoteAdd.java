@@ -16,76 +16,76 @@ import javax.swing.JButton;
 
 public class QuoteAdd {
 
-    /**
-     *      Created by Molly
+	/**
+	 *      Created by Molly
      *          Modified by Eric         
-     */
+	 */
          
     String author, quotes; //input string values 
     ProcessXML add;// add quotes and author into xml file.
     
-    public static void main(String[] args) {
-        EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                try {
-                    QuoteAdd window = new QuoteAdd();
-                    window.frame.setVisible(true);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
-        });
-    }
+	public static void main(String[] args) {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					QuoteAdd window = new QuoteAdd();
+					window.frame.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}
 
-    /**
-     * Create the application.
-     */
-    public QuoteAdd() {
-        initialize();
-    }
+	/**
+	 * Create the application.
+	 */
+	public QuoteAdd() {
+		initialize();
+	}
 
-    /**
-     * Initialize the contents of the frame.
-     */
-    private void initialize() {
-        frame = new JFrame();
-        frame.getContentPane().setFont(new Font("Lucida Sans", Font.PLAIN, 12));
-        frame.setBounds(100, 100, 675, 500);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.getContentPane().setLayout(null);
-        //frame.setVisible(true);
-        
-        JLabel titleText = new JLabel("Add A New Quote");
-        titleText.setHorizontalAlignment(SwingConstants.CENTER);
-        titleText.setFont(new Font("Liberation Serif", Font.BOLD, 24));
-        titleText.setBounds(195, 12, 285, 68);
-        frame.getContentPane().add(titleText);
-        
-        JSeparator separator = new JSeparator();
-        separator.setForeground(Color.LIGHT_GRAY);
-        separator.setBounds(0, 77, 687, 20);
-        frame.getContentPane().add(separator);
-        
-        JLabel labelAuthor = new JLabel("Author: ");
-        labelAuthor.setBounds(33, 109, 70, 15);
-        frame.getContentPane().add(labelAuthor);
-        
-        JLabel labelQuote = new JLabel("Quote:");
-        labelQuote.setBounds(33, 170, 70, 15);
-        frame.getContentPane().add(labelQuote);
-        
-        authorText = new JTextField();
-        authorText.setBounds(121, 109, 517, 19);
-        frame.getContentPane().add(authorText);
-        authorText.setColumns(10);
-        
-        JScrollPane scrollPane = new JScrollPane();
-        scrollPane.setBounds(121, 170, 517, 175);
-        frame.getContentPane().add(scrollPane);
-        
-        quoteText = new JTextArea();
-        scrollPane.setViewportView(quoteText);
-        
+	/**
+	 * Initialize the contents of the frame.
+	 */
+	private void initialize() {
+		frame = new JFrame();
+		frame.getContentPane().setFont(new Font("Lucida Sans", Font.PLAIN, 12));
+		frame.setBounds(100, 100, 675, 500);
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.getContentPane().setLayout(null);
+		//frame.setVisible(true);
+		
+		JLabel titleText = new JLabel("Add A New Quote");
+		titleText.setHorizontalAlignment(SwingConstants.CENTER);
+		titleText.setFont(new Font("Liberation Serif", Font.BOLD, 24));
+		titleText.setBounds(195, 12, 285, 68);
+		frame.getContentPane().add(titleText);
+		
+		JSeparator separator = new JSeparator();
+		separator.setForeground(Color.LIGHT_GRAY);
+		separator.setBounds(0, 77, 687, 20);
+		frame.getContentPane().add(separator);
+		
+		JLabel labelAuthor = new JLabel("Author: ");
+		labelAuthor.setBounds(33, 109, 70, 15);
+		frame.getContentPane().add(labelAuthor);
+		
+		JLabel labelQuote = new JLabel("Quote:");
+		labelQuote.setBounds(33, 170, 70, 15);
+		frame.getContentPane().add(labelQuote);
+		
+		authorText = new JTextField();
+		authorText.setBounds(121, 109, 517, 19);
+		frame.getContentPane().add(authorText);
+		authorText.setColumns(10);
+		
+		JScrollPane scrollPane = new JScrollPane();
+		scrollPane.setBounds(121, 170, 517, 175);
+		frame.getContentPane().add(scrollPane);
+		
+		quoteText = new JTextArea();
+		scrollPane.setViewportView(quoteText);
+		
                 
         /*
             add Clean button 
@@ -102,9 +102,9 @@ public class QuoteAdd {
         /*
             Add button will submit the information the the XML Parser
         */
-        btnAddNew = new JButton("Add");
-        btnAddNew.setBounds(521, 357, 117, 25);
-        frame.getContentPane().add(btnAddNew);       
+		btnAddNew = new JButton("Add");
+		btnAddNew.setBounds(521, 357, 117, 25);
+		frame.getContentPane().add(btnAddNew);       
         btnAddNew.addActionListener(new java.awt.event.ActionListener() {
         public void actionPerformed(java.awt.event.ActionEvent evt) {
             try {
@@ -115,16 +115,16 @@ public class QuoteAdd {
         }});
         
         /*
-            add Exit button 
+        	add Exit button 
          */
-        btnExit = new JButton("Exit");
-        btnExit.setBounds(279, 357, 117, 25);
-        frame.getContentPane().add(btnExit);       
-        btnExit.addActionListener(new java.awt.event.ActionListener() {
-        //button action listener. 
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-            btnExitActionPerformed(evt);
-        }});
+		btnExit = new JButton("Exit");
+		btnExit.setBounds(279, 357, 117, 25);
+		frame.getContentPane().add(btnExit);       
+		btnExit.addActionListener(new java.awt.event.ActionListener() {
+		//button action listener. 
+		    public void actionPerformed(java.awt.event.ActionEvent evt) {
+		    btnExitActionPerformed(evt);
+		}});
 
         quoteText.setText(
             "Author Name Rules" + '\n' + 
@@ -136,7 +136,7 @@ public class QuoteAdd {
                                 
         
         }
-    
+	
          private void btnCleanActionPerformed(java.awt.event.ActionEvent evt) {                                         
         //When clean button is click, then clear textArea and unselected all radio button.
         
@@ -146,10 +146,10 @@ public class QuoteAdd {
          
          private void btnExitActionPerformed(java.awt.event.ActionEvent evt) {                                         
              //When clean button is click, then exit the Add screen
-                frame.dispose();
+        	 	frame.dispose();
              }//end of exit button              
         
-        private void btnAddActionPerformed(java.awt.event.ActionEvent evt) throws Exception {
+    	private void btnAddActionPerformed(java.awt.event.ActionEvent evt) throws Exception {
             //Add new quote and author in quote-list, which is xml file.
             
                 boolean checkAuthor = false;
@@ -192,8 +192,8 @@ public class QuoteAdd {
                             quoteText.setText("-------Error------" +'\n' + "Please check author and quote. Both of them don't satisfy the rule.");
                         }//end of inner if-statement.
                     }//end of outer if-statement
-            
-        }//end of button method.
+    		
+    	}//end of button method.
         
         public boolean checkGrammer(String str, int index){
         //This is checking grammars such as . , ; , ! etc.   
@@ -315,9 +315,9 @@ public class QuoteAdd {
         return checkQuote;
     }//end of chekcQuote
     
-    protected JFrame frame;
-    private JTextField authorText;
-    private javax.swing.JTextArea quoteText;
+	protected JFrame frame;
+	private JTextField authorText;
+	private javax.swing.JTextArea quoteText;
     private JButton btnAddNew; 
     private JButton btnClean;
     private JButton btnExit;

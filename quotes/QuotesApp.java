@@ -270,6 +270,5 @@ public class QuotesApp {
 	private JRadioButton rdbtnAuthor;
 	private JRadioButton rdbtnBoth;
 	private JButton btnRandomQuote;
-	private JScrollPane scroll;
 	private JTextArea recentText;
 }
