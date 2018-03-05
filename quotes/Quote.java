@@ -10,6 +10,7 @@ public class Quote
 {
    private String author;
    private String quoteText;
+   private String keyword;
 
    // Default constructor does nothing
    public Quote ()
@@ -17,10 +18,11 @@ public class Quote
    }
 
    // Constructor that assigns both strings
-   public Quote (String author, String quoteText)
+   public Quote (String author, String quoteText, String keyword)
    {
       this.author = author;
       this.quoteText = quoteText;
+      this.keyword = keyword;
    }
 
    // Getter and setter for author
@@ -42,10 +44,20 @@ public class Quote
    {
       this.quoteText = quoteText;
    }
+   
+   public String getKeyword ()
+   {
+	   System.out.println("in getkeyword");
+      return keyword;
+   }
+   public void setKeyword (String keyword)
+   {
+      this.keyword = keyword;
+   }
 
    @Override
    public String toString ()
    {
-      return "Quote {" + "author='" + author + '\'' + ", quoteText='" + quoteText + '\'' + '}';
+      return "Quote {" + "author='" + author + '\'' + ", quoteText='" + quoteText + '\'' + ", keywordText='" + keyword + '\''+ '}';
    }
 }

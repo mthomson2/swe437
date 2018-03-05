@@ -20,7 +20,9 @@ public class QuoteSaxHandler extends DefaultHandler
    private final String QuoteListElem   = "quote-list";
    private final String QuoteElem       = "quote";
    private final String QuoteAuthorElem = "author";
+   private final String QuoteKeyword    = "keyword";
    private final String QuoteTextElem   = "quote-text";
+   
 
 public QuoteSaxHandler()
 {
@@ -44,6 +46,7 @@ public void endDocument ()
    // System.out.println ("End document"); // For testing
 }
 
+
 @Override
 public void startElement (String uri, String name, String qName, Attributes atts)
 {
@@ -59,6 +62,10 @@ public void startElement (String uri, String name, String qName, Attributes atts
    else if (qName.equalsIgnoreCase (QuoteAuthorElem))
    {
       currentElement = QuoteAuthorElem;
+  
+   }else if (qName.equalsIgnoreCase(QuoteKeyword)) {
+	   
+	   currentElement = QuoteKeyword; 
    }
    else if (qName.equalsIgnoreCase (QuoteTextElem))
    {
@@ -80,16 +87,23 @@ public void endElement (String uri, String name, String qName)
 public void characters (char ch[], int start, int length)
 {
    String value = new String (ch, start, length);
+  
    if (!value.trim().equals(""))
    {
       if (currentElement.equalsIgnoreCase (QuoteTextElem))
       {
          quoteTmp.setQuoteText (value);
       }
+      else if (currentElement.equalsIgnoreCase(QuoteKeyword)) {
+     	 
+    	  quoteTmp.setKeyword (value);
+      }
       else if (currentElement.equalsIgnoreCase (QuoteAuthorElem))
       {
          quoteTmp.setAuthor (value);
       }
+     
+     
    }
 }
 

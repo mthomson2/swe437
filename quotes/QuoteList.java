@@ -17,6 +17,7 @@ public class QuoteList
    /* package */ static final int SearchAuthorVal = 0;
    /* package */ static final int SearchTextVal   = 1;
    /* package */ static final int SearchBothVal   = 2;
+   /* package */ static final int SearchKeyword   = 3;
 
    // For returning a random quote
    private Random randomGen;
@@ -48,6 +49,7 @@ public class QuoteList
       return (Quote) quoteArray.get (i);
    }
 
+  
    /**
     * Search the quotes in the list, based on searchString
     * @param searchString String input for search
@@ -58,6 +60,7 @@ public class QuoteList
    {
       QuoteList returnQuote = new QuoteList();
       Quote quote;
+      try {
       for (int i = 0; i < quoteArray.size(); i++)
       {
          quote = quoteArray.get (i);
@@ -65,18 +68,23 @@ public class QuoteList
          {  // Found a matching author, save it
             //System.out.println ("Matched Author ");
             returnQuote.setQuote (quote);
+            
          } else if (mode == SearchTextVal && quote.getQuoteText().toLowerCase().indexOf (searchString.toLowerCase()) != -1)
          {  // Found a matching quote, save it
-            //System.out.println ("Matched Text ");
             returnQuote.setQuote (quote);
+       
+         } else if (mode == SearchKeyword && quote.getKeyword().toLowerCase().indexOf (searchString.toLowerCase()) != -1) {
+        	 // Found matching keyword
+        	 returnQuote.setQuote(quote);
+        	 
          } else if ((mode == SearchBothVal) &&
                     (quote.getAuthor().toLowerCase().indexOf (searchString.toLowerCase()) != -1 ||
-                     quote.getQuoteText().toLowerCase().indexOf (searchString.toLowerCase()) != -1))
+                     quote.getQuoteText().toLowerCase().indexOf (searchString.toLowerCase()) != -1 ||
+                     quote.getKeyword().toLowerCase().indexOf (searchString.toLowerCase()) != -1))
          {  // Found a matching author or quote, save it
-            // System.out.println ("Matched Both ");
             returnQuote.setQuote (quote);
          }
-      }
+      } } catch (NullPointerException e) {}
       return returnQuote;
    }
 

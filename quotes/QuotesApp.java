@@ -29,8 +29,11 @@ public class QuotesApp {
 			public void run() {
 				try {
 					QuotesApp window = new QuotesApp();
+					
 					window.frame.setVisible(true);
+					
 				} catch (Exception e) {
+					
 					e.printStackTrace();
 				}
 			}
@@ -40,7 +43,7 @@ public class QuotesApp {
 	/**
      * Creates new form QuotesFrame
      */
-    String quoteFileName = "quotes.xml";
+    String quoteFileName = "F:\\csprograms\\eclipse-work\\quotes\\src\\quo.xml";
     QuoteList quoteList;
 
     //QuotesFrame e
@@ -56,6 +59,7 @@ public class QuotesApp {
 	 * Create the application.
 	 */
 	public QuotesApp() {
+		
 		initialize();
 		QuoteSaxParser qParser = new QuoteSaxParser (quoteFileName);
 		quoteList = qParser.getQuoteList();
@@ -135,10 +139,15 @@ public class QuotesApp {
 		rdbtnBoth.setBounds(471, 340, 149, 23);
 		frame.getContentPane().add(rdbtnBoth);
 		
+		rdbtnKeyword = new JRadioButton("Keyword");
+		rdbtnKeyword.setBounds(347, 340, 84, 23);
+		frame.getContentPane().add(rdbtnKeyword);
+		
 		ButtonGroup group = new ButtonGroup();
 		group.add(rdbtnAuthor);
 		group.add(rdbtnQuote);
 		group.add(rdbtnBoth);
+		group.add(rdbtnKeyword);
 		
 		btnSearch = new JButton("Search");
 		btnSearch.setBounds(399, 371, 84, 25);
@@ -183,13 +192,12 @@ public class QuotesApp {
 		scrollPane.setViewportView(recentText);
 		recentText.setEditable(false);
 		
-		JButton btnAddANewquote = new JButton("Add a NewQuote ");
+		btnAddANewquote = new JButton("Add a NewQuote ");
 		btnAddANewquote.setBounds(39, 595, 193, 25);
 		frame.getContentPane().add(btnAddANewquote);
 		
-		JRadioButton rdbtnKeyword = new JRadioButton("Keyword");
-		rdbtnKeyword.setBounds(347, 340, 84, 23);
-		frame.getContentPane().add(rdbtnKeyword);
+		
+		
 		btnAddANewquote.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				btnAddQuoteActionPerformed(e);
@@ -203,11 +211,11 @@ public class QuotesApp {
     }
 	
 	private void btnSearchActionPerformed(ActionEvent evt) {
+		
 		if (textField.getText() != null && !textField.getText().equals("")){  // Received a search request
       
 			int searchScopeInt = QuoteList.SearchBothVal; // Default
       
-        
         if (rdbtnQuote.isSelected()){
             
             searchScopeInt = QuoteList.SearchTextVal;
@@ -216,11 +224,16 @@ public class QuotesApp {
             
             searchScopeInt = QuoteList.SearchAuthorVal;
         
-        } else if(rdbtnBoth.isSelected()){
+        } else if (rdbtnKeyword.isSelected()) {
+        	
+        	System.out.println("This is selected");
+        	searchScopeInt = QuoteList.SearchKeyword;
+        
+        }else if(rdbtnBoth.isSelected()){
             
             searchScopeInt = QuoteList.SearchBothVal;
         
-        } else if(!rdbtnQuote.isSelected() && !rdbtnAuthor.isSelected() && !rdbtnBoth.isSelected()){
+        }else if(!rdbtnQuote.isSelected() && !rdbtnAuthor.isSelected() && !rdbtnBoth.isSelected() && !rdbtnKeyword.isSelected()){
             
             recentText.setText("Please select one of scops to search quotes.");
         
@@ -239,7 +252,14 @@ public class QuotesApp {
             	//recentText.setText("");
                 for (int i = 0; i < searchRes.getSize() ; i++){
                     quoteTmp = searchRes.getQuote(i);
-                    recentText.append("" + quoteTmp.getQuoteText() + '\n' + "-" + quoteTmp.getAuthor() + "-\n");
+                                       
+                    if(quoteTmp.getKeyword().equalsIgnoreCase("")) {
+                    	recentText.append("" + quoteTmp.getQuoteText() + '\n' + "-" + quoteTmp.getAuthor() + "-\n"
+                        		+ "Keyword: No keyword" + "\n");
+                    }
+                    
+                    recentText.append("" + quoteTmp.getQuoteText() + '\n' + "-" + quoteTmp.getAuthor() + "-\n"
+                    		+ "Keyword = " + quoteTmp.getKeyword() + "\n");
                 }//end of for-loop
    
             }//end of inner if-else
@@ -270,9 +290,11 @@ public class QuotesApp {
 	private JTextArea randomText;
 	private JButton btnSearch;
 	private JButton btnReset;
+	private JButton btnAddANewquote;
 	private JRadioButton rdbtnQuote;
 	private JRadioButton rdbtnAuthor;
 	private JRadioButton rdbtnBoth;
+	private JRadioButton rdbtnKeyword;
 	private JButton btnRandomQuote;
 	private JTextArea recentText;
 }

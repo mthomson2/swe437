@@ -12,7 +12,7 @@ import org.w3c.dom.*;
  
 class ProcessXML 
 { 
-    public void process(Quote quoteAuthor) throws Exception, DOMException,ParserConfigurationException { 
+    public void process(String author, String quotes, String keyword) throws Exception, DOMException,ParserConfigurationException { 
        
          
         DocumentBuilderFactory dbf= DocumentBuilderFactory.newInstance(); 
@@ -21,21 +21,28 @@ class ProcessXML
         Element root = dct.getDocumentElement();//get main root, quote-list
         Element root2 = dct.createElement("quote");//get sub root
         Element authorEle = dct.createElement("author");//get child root
+        Element keywordEle = dct.createElement("keyword");//get child root
         Element quoteEle = dct.createElement("quote-text");//get child root 
-        System.out.println("root" + root.getTagName());//it prints out quote-list. 
+        
+        //System.out.println("root" + root.getTagName());//it prints out quote-list. 
         
         //quote-List -> quote -> quote-text = author.
         //root = quote-list
         //subroot = quote 
         //child1 = quote-text
         //child2 = author
-        Text qutoeText = dct.createTextNode(quoteAuthor.getQuoteText());
-        Text authorText = dct.createTextNode(quoteAuthor.getAuthor());
+        Text quoteText = dct.createTextNode(quotes);
+        Text authorText = dct.createTextNode(author);
+        Text keywordText = dct.createTextNode(keyword);
         
-        quoteEle.appendChild(qutoeText);//add text into child
+        keywordEle.appendChild(keywordText);
+        quoteEle.appendChild(quoteText);//add text into child
         authorEle.appendChild(authorText);//add text into child
+        
         root2.appendChild(quoteEle);//connect to sub root
         root2.appendChild(authorEle);//connect to sub root
+        root2.appendChild(keywordEle);//append keyword.
+        root.appendChild(root2);//connect to root
         root.appendChild(root2);//connect to root
         root.appendChild(root2);//connect to root.
         
@@ -45,7 +52,7 @@ class ProcessXML
         DOMSource source = new DOMSource(dct);
         StreamResult result = new StreamResult(new File("/home/molly/Desktop/new/Spring2018/swe437/hw2/quotes/src/quotes/quo.xml"));
         transformer.transform(source, result);
-        System.out.println("File saved!"); //testing statement.
+        //System.out.println("File saved!"); //testing statement.
     
         
     }//end of process 

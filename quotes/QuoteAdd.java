@@ -21,7 +21,7 @@ public class QuoteAdd {
      *          Modified by Eric         
 	 */
          
-    String author, quotes; //input string values 
+    String author, quotes, keyword; //input string values 
     ProcessXML add;// add quotes and author into xml file.
     
 	public static void main(String[] args) {
@@ -160,13 +160,20 @@ public class QuoteAdd {
         
     	private void btnAddActionPerformed(java.awt.event.ActionEvent evt) throws Exception {
             //Add new quote and author in quote-list, which is xml file.
-            
+            //refactering:user can add keyword 3 per quote at a time.  
+
+    		
+    		// //refactoring //refactoring //refactoring //refactoring //refactoring //refactoring
                 boolean checkAuthor = false;
                 boolean checkQuote = false;
-                
+                boolean checkKeyword = false;
                     author = authorText.getText();//get author name from textfield
                     quotes = quoteText.getText();//get quotes from textArea
-                    Quote quoteAuthor = new Quote(author, quotes);
+                    keyword = textKeyword.getText();//get keyword.
+                    Quote quoteAuthor = new Quote(author, quotes, keyword);
+                 
+                    //refactoring
+                    checkKeyword = checkkeywords(keyword);//check keyword input is vaild or not.
                     
                     if(author.length()==0 || quotes.length() == 0){
                         //case 1: checking inputs are empty or not. 
@@ -174,36 +181,73 @@ public class QuoteAdd {
                         checkAuthor = false;
                         checkQuote = false;
                     
-                    } else{
+                    }else{
                         //case 2: if inputs are not empty, then determine that author and quotes are failed or not. 
                         
                         checkAuthor = checkAuthor(author);//call checkAuthor method to check author string
                         checkQuote = checkQuote(quotes);//call checkQuote method to check quote string. 
                           
-                        if(checkQuote && checkAuthor){
+                        if(checkQuote && checkAuthor && checkKeyword){
                         //case 3: If author name and quotes satisfy the integrity of the data file,
                         //then call add method in ProcessXML class to add author and quotes into XML file.
                             add = new ProcessXML();//initialize add value
-                            add.process(quoteAuthor);//passing author and quotes into ProcessXML.
+                            add.process(author,quotes, keyword);//passing author and quotes into ProcessXML.
                             quoteText.setText("Your quote has been saved!!");
                 
-                        } else {
-                            //case 4: if author string does not satisfy, then print out error message in quoteText area. 
-                            if(!checkAuthor) {
+                        }else if(!checkAuthor) {
+                        	   //case 4: if author string does not satisfy, then print out error message in quoteText area.
                                 quoteText.setText("-------Error------" +'\n' +"Please check Author name. First name and Last name must beging with upper case.");
                             
-                            } else if(!checkQuote) {
+                        } else if(!checkQuote) {
                                 //case 5: if quotes string does not satisfy, then print out error message in quoteText area. 
                                 quoteText.setText("Please check quote. Quote must begin with upper case");
-                            }
-                        
-                            //case 6: if both of them are failed, then print out error message. 
-                            quoteText.setText("-------Error------" +'\n' + "Please check author and quote. Both of them don't satisfy the rule.");
+                        }else if (!checkKeyword) {
+                            	//Refactoring case: if user add more then 4 keyword words, then print out error message. 
+                            	quoteText.setText("Please check your keyword. You can't add more than 4 keyword words.");
+                            	
+                        }else {
+                        //case 6: if both of them are failed, then print out error message. 
+                        quoteText.setText("-------Error------" +'\n' + "Please check author, quote, and keyword. All of them don't satisfy the rule.");
                         }//end of inner if-statement.
                     }//end of outer if-statement
     		
     	}//end of button method.
         
+    	
+    	public boolean checkkeywords(String str) {
+    	/*
+    	 * 
+    	 *  //refactoring //refactoring //refactoring //refactoring
+    	 * 
+    	 * 
+    	 */
+    		int commaCount = 0;
+    		int whhiteSpaceCount = 0;
+    		
+    		if(str == null) {
+    			
+    			return true;
+    		}
+            for(int i = 0;  i< str.length(); i++) {
+            	
+            	if(str.charAt(i) == ',') {
+            		commaCount++;
+            	}
+            	
+            	if(str.charAt(i)== ' ') {
+            		
+            		whhiteSpaceCount++;
+            	}
+            }
+
+            if(commaCount > 4 || whhiteSpaceCount > 2) {
+            	return false;
+            }else {
+            	return true;
+            }
+    		    		
+    	}
+    	
         public boolean checkGrammer(String str, int index){
         //This is checking grammars such as . , ; , ! etc.   
         //case 7: check punctuation mark. Only allow below marks. 
